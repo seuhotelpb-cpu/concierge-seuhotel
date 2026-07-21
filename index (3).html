@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#242424">
+  <title>Concierge Digital | SEU HOTEL</title>
+  <style>
+    :root{
+      --bg:#f3f3f3; --card:#fff; --text:#202020; --muted:#666;
+      --accent:#9a7a42; --dark:#242424; --line:#dedede; --success:#237a4b;
+      --danger:#a33a3a; --shadow:0 8px 28px rgba(0,0,0,.10);
+    }
+    body.dark{
+      --bg:#171717; --card:#242424; --text:#f5f5f5; --muted:#bcbcbc;
+      --dark:#101010; --line:#3a3a3a; --shadow:0 8px 28px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--text);
+      background:linear-gradient(180deg,#242424 0,#4b4b4b 260px,var(--bg) 260px);
+      transition:.25s;
+    }
+    a{color:inherit}
+    .wrap{width:min(820px,100%);margin:auto;padding:22px 14px 105px}
+    .hero{text-align:center;color:#fff;padding:18px 10px 26px}
+    .logo{
+      width:96px;height:96px;border-radius:50%;display:grid;place-items:center;
+      margin:0 auto 14px;background:#fff;color:#222;font-size:24px;font-weight:800;
+      border:4px solid rgba(255,255,255,.28);box-shadow:0 10px 24px rgba(0,0,0,.25)
+    }
+    .hero h1{margin:0;font-size:31px;letter-spacing:.6px}
+    .hero p{margin:8px 0 0;color:#eee}
+    .top-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+    button,.button{
+      border:0;border-radius:12px;padding:12px 15px;font-weight:700;cursor:pointer;
+      text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:7px;
+      font-size:14px
+    }
+    .light-btn{background:#fff;color:#252525}
+    .gold-btn{background:var(--accent);color:#fff}
+    .dark-btn{background:var(--dark);color:#fff}
+    .outline-btn{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+    .quick{
+      background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 8px;
+      text-align:center;text-decoration:none;box-shadow:var(--shadow)
+    }
+    .quick span{display:block;font-size:27px;margin-bottom:7px}
+    .quick strong{font-size:13px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;
+      margin-bottom:14px;box-shadow:var(--shadow)
+    }
+    .card h2{margin:0 0 14px;font-size:20px}
+    .card h3{margin:16px 0 8px;font-size:16px}
+    .card p,.card li{line-height:1.55}
+    .info{
+      background:rgba(154,122,66,.10);border-left:4px solid var(--accent);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .notice{
+      background:rgba(163,58,58,.09);border-left:4px solid var(--danger);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .success{
+      background:rgba(35,122,75,.09);border-left:4px solid var(--success);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .full{display:block;width:100%;margin-top:10px}
+    .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    ul{padding-left:21px;margin:8px 0}
+    li{margin:8px 0}
+    details{border-top:1px solid var(--line);padding:12px 0}
+    details:first-of-type{border-top:0}
+    summary{cursor:pointer;font-weight:700}
+    textarea,input{
+      width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;
+      background:var(--bg);color:var(--text);font:inherit
+    }
+    textarea{min-height:115px;resize:vertical}
+    .recommendation{padding:12px;border:1px dashed var(--line);border-radius:12px;margin:9px 0}
+    .editable[contenteditable="true"]{outline:2px dashed var(--accent);outline-offset:4px;border-radius:4px}
+    .edit-panel{
+      position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(780px,calc(100% - 20px));
+      display:none;gap:8px;flex-wrap:wrap;justify-content:center;background:rgba(20,20,20,.94);
+      padding:10px;border-radius:16px;z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    .edit-panel.show{display:flex}
+    .edit-panel button{padding:10px 12px}
+    footer{text-align:center;color:var(--muted);font-size:13px;padding-top:12px}
+    .small{font-size:13px;color:var(--muted)}
+    .hide-print{}
+    @media(max-width:620px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .service-grid{grid-template-columns:1fr}
+      .hero h1{font-size:27px}
+    }
+    @media print{
+      body{background:#fff}
+      .top-actions,.edit-panel,.hide-print{display:none!important}
+      .wrap{padding-bottom:20px}
+      .card,.quick{box-shadow:none;break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" id="content">
+    <section class="hero">
+      <div class="logo editable" data-key="logo">SH</div>
+      <h1 class="editable" data-key="hotelName">SEU HOTEL</h1>
+      <p class="editable" data-key="subtitle">Seu concierge digital durante a hospedagem</p>
+      <div class="top-actions hide-print">
+        <a class="button light-btn" href="https://wa.me/5583981131259?text=Olá!%20Estou%20hospedado(a)%20no%20SEU%20HOTEL%20e%20gostaria%20de%20atendimento." target="_blank">💬 Recepção</a>
+        <button class="light-btn" onclick="toggleDark()">🌙 Modo escuro</button>
+        <button class="gold-btn" onclick="toggleEditor()">✏️ Editar conteúdo</button>
+      </div>
+    </section>
+
+    <section class="grid hide-print">
+      <a class="quick" href="#wifi"><span>📶</span><strong>Wi‑Fi</strong></a>
+      <a class="quick" href="#hospedagem"><span>🛏️</span><strong>Hospedagem</strong></a>
+      <a class="quick" href="#cafe"><span>☕</span><strong>Café</strong></a>
+      <a class="quick" href="#regras"><span>📋</span><strong>Regras</strong></a>
+      <a class="quick" href="#delivery"><span>🍔</span><strong>Delivery</strong></a>
+      <a class="quick" href="#avaliacao"><span>⭐</span><strong>Avaliar</strong></a>
+    </section>
+
+    <section class="card" id="wifi">
+      <h2>📶 Wi‑Fi</h2>
+      <div class="info">
+        <p><strong>Rede:</strong> <span class="editable" data-key="wifiName">SEU HOTEL</span></p>
+        <p><strong>Senha:</strong> <span id="wifiPassword" class="editable" data-key="wifiPassword">seuhotelpatos*</span></p>
+      </div>
+      <button class="dark-btn full hide-print" onclick="copyWifi()">📋 Copiar senha do Wi‑Fi</button>
+    </section>
+
+    <section class="card" id="hospedagem">
+      <h2>🛏️ Minha hospedagem</h2>
+      <p><strong>Recepção:</strong> 24 horas</p>
+      <p><strong>Check-out:</strong> até às 12h</p>
+      <div class="service-grid hide-print">
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20a%20arrumação%20do%20meu%20quarto.">🧹 Solicitar arrumação</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20troca%20de%20toalhas.">🧺 Trocar toalhas</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Preciso%20de%20ajuda%20com%20a%20manutenção%20do%20quarto.">🛠️ Manutenção</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20falar%20com%20a%20recepção.">🛎️ Falar com a recepção</a>
+      </div>
+      <div class="notice">
+        <strong>Atenção:</strong> a arrumação do quarto, quando solicitada pelo hóspede, deve ser pedida até às 11h.
+      </div>
+    </section>
+
+    <section class="card" id="cafe">
+      <h2>☕ Café da manhã</h2>
+      <p><strong>Segunda a sexta:</strong> <span class="editable" data-key="coffeeWeek">06h às 09h</span></p>
+      <p><strong>Sábados, domingos e feriados:</strong> <span class="editable" data-key="coffeeWeekend">07h às 09h</span></p>
+      <div class="info">O espaço café poderá ser usado para reuniões ou trabalhos somente após as 09h e depois da limpeza do ambiente.</div>
+    </section>
+
+    <section class="card" id="regras">
+      <h2>📋 Regras do hotel</h2>
+      <ul>
+        <li>Não é permitido fumar nos quartos ou nas áreas internas.</li>
+        <li>Evite barulhos nos corredores, principalmente durante a noite.</li>
+        <li>A arrumação do quarto, quando solicitada, deve ser pedida até às 11h.</li>
+        <li>Visitantes devem ser identificados e cadastrados na recepção.</li>
+        <li><strong>Visitas têm tolerância de permanência de até 5 minutos.</strong></li>
+        <li>Os consumos estão disponíveis somente no freezer da recepção.</li>
+        <li>Os consumos não estão incluídos no valor da diária.</li>
+        <li>O pagamento dos consumos deve ser feito diretamente na recepção.</li>
+        <li>Utensílios do espaço café só podem ser levados aos quartos com autorização da gerência.</li>
+        <li>Ao sair do quarto, desligue luzes, televisão e ar-condicionado.</li>
+        <li>Danos causados ao patrimônio poderão ser cobrados do responsável pela hospedagem.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="delivery">
+      <h2>🍔 Delivery</h2>
+      <p>Peça comida, mercado, farmácia, água, gás e outros itens pelo aplicativo.</p>
+      <a class="button gold-btn full hide-print" href="https://play.google.com/store/apps/details?id=com.querodelivery&hl=pt-BR" target="_blank">📲 Baixar Quero Delivery na Play Store</a>
+      <div class="info">
+        No endereço de entrega, informe <strong>SEU HOTEL</strong>, Rua Escritor Rui Barbosa, nº 20, Centro, Patos/PB. Informe também seu nome e o número do quarto.
+      </div>
+      <div class="notice">
+        O hotel não se responsabiliza pelo preparo, pagamento, prazo ou entrega dos pedidos realizados em aplicativos ou estabelecimentos externos.
+      </div>
+      <h3>Indicações de delivery</h3>
+      <div class="recommendation editable" data-key="delivery1"><strong>Delivery 1:</strong> preencha aqui o nome, telefone e especialidade.</div>
+      <div class="recommendation editable" data-key="delivery2"><strong>Delivery 2:</strong> preencha aqui o nome, telefone e especialidade.</div>
+    </section>
+
+    <section class="card" id="restaurantes">
+      <h2>🍽️ Restaurantes recomendados</h2>
+      <p class="small">Esta área pode ser alterada usando o botão “Editar conteúdo”.</p>
+      <div class="recommendation editable" data-key="restaurant1"><strong>Restaurante 1:</strong> nome, endereço, telefone e tipo de comida.</div>
+      <div class="recommendation editable" data-key="restaurant2"><strong>Restaurante 2:</strong> nome, endereço, telefone e tipo de comida.</div>
+      <div class="recommendation editable" data-key="restaurant3"><strong>Restaurante 3:</strong> nome, endereço, telefone e tipo de comida.</div>
+    </section>
+
+    <section class="card" id="turismo">
+      <h2>🏛️ Pontos turísticos e locais para visitar</h2>
+      <div class="recommendation editable" data-key="tour1"><strong>Parque Religioso Cruz da Menina</strong><br>Inclua aqui informações, horário e orientações.</div>
+      <div class="recommendation editable" data-key="tour2"><strong>Catedral de Nossa Senhora da Guia</strong><br>Inclua aqui informações, horário e orientações.</div>
+      <div class="recommendation editable" data-key="tour3"><strong>Outros locais</strong><br>Inclua aqui novas indicações para os hóspedes.</div>
+      <a class="button gold-btn full hide-print" target="_blank" href="https://www.google.com/maps/search/?api=1&query=pontos+turísticos+Patos+PB">📍 Ver no Google Maps</a>
+    </section>
+
+    <section class="card">
+      <h2>🏋️ Academia parceira</h2>
+      <p>Hóspedes do SEU HOTEL podem utilizar a <strong>Sol Fitness</strong> mediante apresentação do passe fornecido pelo hotel.</p>
+      <p><strong>Valor:</strong> R$ 10,00 por acesso.</p>
+      <a class="button gold-btn full hide-print" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20o%20passe%20da%20academia%20Sol%20Fitness.">Solicitar passe</a>
+    </section>
+
+    <section class="card" id="avaliacao">
+      <h2>⭐ Deixe seu comentário</h2>
+      <p>Sua opinião é muito importante para melhorarmos nossos serviços.</p>
+      <input id="guestName" type="text" placeholder="Seu nome (opcional)">
+      <textarea id="guestComment" placeholder="Escreva seu elogio, sugestão ou observação..."></textarea>
+      <button class="gold-btn full hide-print" onclick="sendComment()">💬 Enviar comentário pelo WhatsApp</button>
+      <p class="small">O comentário só será enviado quando você confirmar o envio no WhatsApp.</p>
+    </section>
+
+    <section class="card" id="localizacao">
+      <h2>📍 Localização</h2>
+      <p class="editable" data-key="address">Rua Escritor Rui Barbosa, nº 20, Centro – Patos/PB</p>
+      <a class="button gold-btn full hide-print" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Rua%20Escritor%20Rui%20Barbosa%2020%20Centro%20Patos%20PB">Abrir no Google Maps</a>
+    </section>
+
+    <section class="card">
+      <h2>❓ Perguntas frequentes</h2>
+      <details><summary>Como funciona a reserva?</summary><p>Solicitamos os dados do responsável e um adiantamento de 50% do valor da hospedagem. Os outros 50% são pagos no check-in.</p></details>
+      <details><summary>Quando a nota fiscal é emitida?</summary><p>A nota fiscal é emitida no check-out, após a conclusão da hospedagem.</p></details>
+      <details><summary>O hotel possui estacionamento?</summary><p>Consulte a recepção para receber as orientações disponíveis no momento da hospedagem.</p></details>
+      <details><summary>Posso receber visitantes?</summary><p>Sim, desde que o visitante seja identificado e cadastrado na recepção. A tolerância de permanência é de até 5 minutos.</p></details>
+    </section>
+
+    <section class="card" id="contato">
+      <h2>💬 Contato</h2>
+      <p><strong>Telefone/WhatsApp:</strong> (83) 98113-1259</p>
+      <p><strong>Instagram:</strong> @seu.hotel</p>
+      <p><strong>E-mail:</strong> seuhotelpb@gmail.com</p>
+      <a class="button dark-btn full hide-print" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Estou%20hospedado(a)%20no%20SEU%20HOTEL%20e%20gostaria%20de%20atendimento.">Chamar a recepção</a>
+    </section>
+
+    <footer>© 2026 SEU HOTEL • Patos/PB</footer>
+  </main>
+
+  <div class="edit-panel" id="editPanel">
+    <button class="gold-btn" onclick="saveEdits()">💾 Salvar</button>
+    <button class="light-btn" onclick="toggleEditor()">✅ Concluir edição</button>
+    <button class="light-btn" onclick="window.print()">🖨️ Imprimir/PDF</button>
+    <button class="outline-btn" onclick="resetEdits()">↩️ Restaurar original</button>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'seuHotelConciergeEditsV3';
+    let editing = false;
+
+    function toggleDark(){
+      document.body.classList.toggle('dark');
+      localStorage.setItem('seuHotelDarkMode', document.body.classList.contains('dark') ? '1' : '0');
+    }
+
+    function toggleEditor(){
+      editing = !editing;
+      document.querySelectorAll('.editable').forEach(el => {
+        el.contentEditable = editing ? 'true' : 'false';
+      });
+      document.getElementById('editPanel').classList.toggle('show', editing);
+      if(editing) alert('Modo de edição ativado. Clique nos textos destacados, altere e depois pressione Salvar.');
+    }
+
+    function saveEdits(){
+      const data = {};
+      document.querySelectorAll('[data-key]').forEach(el => data[el.dataset.key] = el.innerHTML);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      alert('Alterações salvas neste navegador.');
+    }
+
+    function loadEdits(){
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(!saved) return;
+      try{
+        const data = JSON.parse(saved);
+        document.querySelectorAll('[data-key]').forEach(el => {
+          if(data[el.dataset.key] !== undefined) el.innerHTML = data[el.dataset.key];
+        });
+      }catch(e){}
+    }
+
+    function resetEdits(){
+      if(confirm('Deseja apagar todas as alterações salvas e restaurar o conteúdo original?')){
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    }
+
+    function copyWifi(){
+      const password = document.getElementById('wifiPassword').innerText.trim();
+      navigator.clipboard.writeText(password)
+        .then(() => alert('Senha copiada: ' + password))
+        .catch(() => prompt('Copie a senha:', password));
+    }
+
+    function sendComment(){
+      const name = document.getElementById('guestName').value.trim();
+      const comment = document.getElementById('guestComment').value.trim();
+      if(!comment){ alert('Escreva seu comentário antes de enviar.'); return; }
+      const text = `Olá! Gostaria de deixar um comentário sobre minha hospedagem no SEU HOTEL.%0A%0ANome: ${encodeURIComponent(name || 'Não informado')}%0AComentário: ${encodeURIComponent(comment)}`;
+      window.open('https://wa.me/5583981131259?text=' + text, '_blank');
+    }
+
+    if(localStorage.getItem('seuHotelDarkMode') === '1') document.body.classList.add('dark');
+    loadEdits();
+  </script>
+</body>
+</html>
