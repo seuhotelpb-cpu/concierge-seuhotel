@@ -108,7 +108,60 @@
       .top-actions,.edit-panel,.hide-print{display:none!important}
       .wrap{padding-bottom:20px}
       .card,.quick{box-shadow:none;break-inside:avoid}
-    }
+    } 
+    /* ===== SIMPLÊ RESTAURANTE ===== */
+
+.restaurante-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:15px;
+}
+
+.restaurante-logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:15px;
+  padding:6px;
+  border:1px solid var(--line);
+  box-shadow:0 4px 12px rgba(0,0,0,.10);
+}
+
+.restaurante-nome{
+  font-size:19px;
+}
+
+.restaurante-galeria{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:15px 0;
+}
+
+.restaurante-galeria img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:14px;
+  display:block;
+}
+
+@media(max-width:620px){
+  .restaurante-galeria{
+    grid-template-columns:1fr;
+  }
+
+  .restaurante-galeria img{
+    height:220px;
+  }
+
+  .restaurante-logo{
+    width:75px;
+    height:75px;
+  }
+}
   </style>
 </head>
 <body>
@@ -194,7 +247,45 @@
         O hotel não se responsabiliza pelo preparo, pagamento, prazo ou entrega dos pedidos realizados em aplicativos ou estabelecimentos externos.
       </div>
     </section>
+<section class="card" id="restaurante">
 
+  <h2>🍽️ Restaurante Indicado</h2>
+
+  <div class="restaurante-header">
+
+    <img src="simple-logo.jpg"
+         alt="Logo Simplê Restaurante"
+         class="restaurante-logo">
+
+    <div>
+      <strong class="restaurante-nome">Simplê Restaurante</strong>
+      <p class="small">Indicação SEU HOTEL</p>
+    </div>
+
+  </div>
+
+  <p>
+    Uma ótima opção gastronômica para nossos hóspedes, com ambiente
+    agradável e acolhedor para aproveitar bons momentos.
+  </p>
+
+  <div class="restaurante-galeria">
+
+    <img src="simple-ambiente-1.jpg"
+         alt="Ambiente do Simplê Restaurante">
+
+    <img src="simple-ambiente-2.jpg"
+         alt="Ambiente do Simplê Restaurante">
+
+  </div>
+
+  <a class="button gold-btn full hide-print"
+     href="https://share.google/7NH5SyFEJmePC8lCI"
+     target="_blank">
+     📍 Como chegar
+  </a>
+
+</section>
     <
     </section>
 <section class="card" id="lojas">
