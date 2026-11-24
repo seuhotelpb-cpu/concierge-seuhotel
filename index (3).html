@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26384B">
+  <title>Concierge Digital | SEU HOTEL</title>
+  <style>
+    :root{
+      --bg:#F4F5F6; --card:#fff; --text:#202020; --muted:#666;
+      --accent:#A98745; --dark:#242424; --line:#dedede; --success:#237a4b;
+      --danger:#a33a3a; --shadow:0 8px 28px rgba(0,0,0,.10);
+    }
+    body.dark{
+      --bg:#171717; --card:#242424; --text:#f5f5f5; --muted:#bcbcbc;
+      --dark:#101010; --line:#3a3a3a; --shadow:0 8px 28px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--text);
+      background:linear-gradient(180deg,#242424 0,#4b4b4b 260px,var(--bg) 260px);
+      transition:.25s;
+    }
+    a{color:inherit}
+    .wrap{width:min(820px,100%);margin:auto;padding:22px 14px 105px}
+    .hero{text-align:center;color:#fff;padding:18px 10px 26px}
+    .logo{
+      width:96px;height:96px;border-radius:50%;display:grid;place-items:center;
+      margin:0 auto 14px;background:#fff;color:#222;font-size:24px;font-weight:800;
+      border:4px solid rgba(255,255,255,.28);box-shadow:0 10px 24px rgba(0,0,0,.25)
+    }
+    .logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:50%;
+}
+    .hero h1{margin:0;font-size:31px;letter-spacing:.6px}
+    .hero p{margin:8px 0 0;color:#eee}
+    .top-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+    button,.button{
+      border:0;border-radius:12px;padding:12px 15px;font-weight:700;cursor:pointer;
+      text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:7px;
+      font-size:14px
+    }
+    .light-btn{background:#fff;color:#252525}
+    .gold-btn{background:var(--accent);color:#fff}
+    .dark-btn{background:var(--dark);color:#fff}
+    .outline-btn{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+    .quick{
+      background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 8px;
+      text-align:center;text-decoration:none;box-shadow:var(--shadow)
+    }
+    .quick span{display:block;font-size:27px;margin-bottom:7px}
+    .quick strong{font-size:13px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;
+      margin-bottom:14px;box-shadow:var(--shadow)
+    }
+    .card h2{margin:0 0 14px;font-size:20px}
+    .card h3{margin:16px 0 8px;font-size:16px}
+    .card p,.card li{line-height:1.55}
+    .info{
+      background:rgba(154,122,66,.10);border-left:4px solid var(--accent);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .notice{
+      background:rgba(163,58,58,.09);border-left:4px solid var(--danger);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .success{
+      background:rgba(35,122,75,.09);border-left:4px solid var(--success);
+      padding:13px 14px;border-radius:9px;margin:10px 0
+    }
+    .full{display:block;width:100%;margin-top:10px}
+    .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    ul{padding-left:21px;margin:8px 0}
+    li{margin:8px 0}
+    details{border-top:1px solid var(--line);padding:12px 0}
+    details:first-of-type{border-top:0}
+    summary{cursor:pointer;font-weight:700}
+    textarea,input{
+      width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;
+      background:var(--bg);color:var(--text);font:inherit
+    }
+    textarea{min-height:115px;resize:vertical}
+    .recommendation{padding:12px;border:1px dashed var(--line);border-radius:12px;margin:9px 0}
+    .editable[contenteditable="true"]{outline:2px dashed var(--accent);outline-offset:4px;border-radius:4px}
+    .edit-panel{
+      position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(780px,calc(100% - 20px));
+      display:none;gap:8px;flex-wrap:wrap;justify-content:center;background:rgba(20,20,20,.94);
+      padding:10px;border-radius:16px;z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    .edit-panel.show{display:flex}
+    .edit-panel button{padding:10px 12px}
+    footer{text-align:center;color:var(--muted);font-size:13px;padding-top:12px}
+    .small{font-size:13px;color:var(--muted)}
+    .hide-print{}
+    @media(max-width:620px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .service-grid{grid-template-columns:1fr}
+      .hero h1{font-size:27px}
+    }
+    @media print{
+      body{background:#fff}
+      .top-actions,.edit-panel,.hide-print{display:none!important}
+      .wrap{padding-bottom:20px}
+      .card,.quick{box-shadow:none;break-inside:avoid}
+    } 
+    /* ===== SIMPLÊ RESTAURANTE ===== */
+
+.restaurante-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:15px;
+}
+
+.restaurante-logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:15px;
+  padding:6px;
+  border:1px solid var(--line);
+  box-shadow:0 4px 12px rgba(0,0,0,.10);
+}
+
+.restaurante-nome{
+  font-size:19px;
+}
+
+.restaurante-galeria{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:15px 0;
+}
+
+.restaurante-galeria img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:14px;
+  display:block;
+}
+
+@media(max-width:620px){
+  .restaurante-galeria{
+    grid-template-columns:1fr;
+  }
+
+  .restaurante-galeria img{
+    height:220px;
+  }
+
+  .restaurante-logo{
+    width:75px;
+    height:75px;
+  }
+}
+  
+
+/* ==========================================================
+   SEU HOTEL — CONCIERGE DIGITAL | MODERNIZAÇÃO VISUAL
+   Somente CSS: conteúdo, IDs, links, scripts e funções mantidos.
+   ========================================================== */
+:root {
+  --bg: #F4F5F6;
+  --card: #ffffff;
+  --text: #26384B;
+  --muted: #68717C;
+  --accent: #C5A15B;
+  --dark: #26384B;
+  --line: #E5E8EC;
+  --success: #16835c;
+  --danger: #b83c4b;
+  --shadow: 0 14px 36px rgba(16, 43, 70, .075);
+}
+body.dark {
+  --bg: #171B20;
+  --card: #26384B;
+  --text: #eff6fa;
+  --muted: #B8C0C9;
+  --accent: #d4b66f;
+  --dark: #071a2b;
+  --line: #294356;
+  --success: #48b889;
+  --danger: #ed7782;
+  --shadow: 0 14px 36px rgba(0, 0, 0, .25);
+}
+html { scroll-padding-top: 18px; }
+body {
+  font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 88% 4%, rgba(197,161,91,.07), transparent 27%),
+    var(--bg);
+  line-height: 1.55;
+}
+.wrap {
+  width: min(1040px, 100%);
+  padding: 28px 20px 112px;
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: -28px -20px 0;
+  padding: 46px 24px 76px;
+  border-radius: 0 0 34px 34px;
+  background:
+    radial-gradient(ellipse at 82% 18%, rgba(197,161,91,.28), transparent 34%),
+    radial-gradient(ellipse at 12% 100%, rgba(198,164,91,.19), transparent 36%),
+    linear-gradient(125deg, #171B20, #35495D 66%, #35495D);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .13;
+  background-image:
+    linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg, #000, transparent 90%);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 390px;
+  height: 390px;
+  right: -170px;
+  bottom: -270px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 50%;
+  background: rgba(197,161,91,.11);
+  box-shadow: 0 0 0 34px rgba(255,255,255,.025),
+              0 0 0 68px rgba(255,255,255,.018);
+}
+.logo {
+  width: 108px;
+  height: 108px;
+  margin-bottom: 18px;
+  border: 4px solid rgba(255,255,255,.7);
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+}
+.hero h1 {
+  color: #fff;
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 850;
+  letter-spacing: -.045em;
+}
+.hero p {
+  color: rgba(245,250,253,.82);
+  font-size: 16px;
+}
+.top-actions {
+  gap: 10px;
+  margin-top: 22px;
+}
+button, .button {
+  min-height: 46px;
+  padding: 12px 17px;
+  border-radius: 14px;
+  font-weight: 750;
+  transition: transform .18s ease, box-shadow .18s ease,
+              background .18s ease, border-color .18s ease;
+}
+button:hover, .button:hover {
+  transform: translateY(-2px);
+}
+.light-btn {
+  color: #26384B;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0,0,0,.10);
+}
+.gold-btn {
+  color: #26384B;
+  background: linear-gradient(135deg, #D9BD7B, #C5A15B);
+  box-shadow: 0 9px 22px rgba(198,164,91,.22);
+}
+.gold-btn:hover {
+  box-shadow: 0 13px 28px rgba(198,164,91,.3);
+}
+.dark-btn {
+  color: #fff;
+  background: linear-gradient(135deg, #35495D, #26384B);
+  box-shadow: 0 8px 20px rgba(16,43,70,.14);
+}
+.outline-btn {
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: transparent;
+}
+.grid {
+  position: relative;
+  margin: -42px 0 22px;
+  gap: 13px;
+}
+.quick {
+  position: relative;
+  overflow: hidden;
+  min-height: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--navy, #26384B);
+  background: var(--card);
+  box-shadow: 0 13px 32px rgba(16,43,70,.09);
+  transition: transform .2s ease, box-shadow .2s ease,
+              border-color .2s ease;
+}
+.quick::after {
+  content: "";
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  right: -34px;
+  bottom: -40px;
+  border-radius: 50%;
+  background: rgba(197,161,91,.075);
+}
+.quick:hover {
+  transform: translateY(-4px);
+  border-color: rgba(197,161,91,.48);
+  box-shadow: 0 18px 38px rgba(16,43,70,.13);
+}
+.quick span {
+  margin-bottom: 8px;
+  font-size: 29px;
+}
+.quick strong {
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: .01em;
+}
+.card {
+  margin-bottom: 17px;
+  padding: clamp(19px, 3vw, 27px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.card h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  color: var(--text);
+  font-size: 21px;
+  font-weight: 820;
+  letter-spacing: -.025em;
+}
+.card h3 {
+  color: var(--text);
+  font-weight: 760;
+}
+.card p, .card li { line-height: 1.7; }
+.info, .notice, .success {
+  padding: 15px 16px;
+  border-radius: 13px;
+  border-left-width: 4px;
+}
+.info {
+  color: var(--text);
+  border-left-color: var(--accent);
+  background: rgba(198,164,91,.105);
+}
+.notice {
+  border-left-color: var(--danger);
+  background: rgba(184,60,75,.075);
+}
+.success {
+  border-left-color: var(--success);
+  background: rgba(22,131,92,.075);
+}
+.service-grid { gap: 10px; }
+.service-grid .button {
+  min-height: 50px;
+  text-align: center;
+}
+details {
+  border-top-color: var(--line);
+  padding: 15px 2px;
+}
+summary {
+  color: var(--text);
+  line-height: 1.5;
+}
+details p { color: var(--muted); }
+textarea, input {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+textarea:focus, input:focus {
+  outline: none;
+  border-color: #C5A15B;
+  box-shadow: 0 0 0 4px rgba(197,161,91,.12);
+}
+textarea { min-height: 125px; }
+.recommendation {
+  border-color: var(--line);
+  border-radius: 14px;
+  background: rgba(197,161,91,.035);
+}
+.edit-panel {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 19px;
+  background: rgba(9,31,52,.96);
+  box-shadow: 0 18px 48px rgba(0,0,0,.3);
+  backdrop-filter: blur(14px);
+}
+.edit-panel .outline-btn {
+  color: #fff;
+  border-color: rgba(255,255,255,.25);
+}
+footer {
+  color: var(--muted);
+  padding: 22px 10px 8px;
+}
+.small { color: var(--muted); }
+.restaurante-header { gap: 17px; }
+.restaurante-logo {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(16,43,70,.10);
+}
+.restaurante-galeria { gap: 12px; }
+.restaurante-galeria img {
+  border-radius: 17px;
+  box-shadow: 0 8px 22px rgba(16,43,70,.08);
+}
+body.dark .card,
+body.dark .quick {
+  color: var(--text);
+  border-color: var(--line);
+  background: var(--card);
+}
+body.dark .quick strong,
+body.dark .card h2,
+body.dark .card h3,
+body.dark summary { color: var(--text); }
+body.dark .info { color: var(--text); }
+body.dark .info, body.dark .notice, body.dark .success {
+  background-color: rgba(255,255,255,.045);
+}
+body.dark textarea, body.dark input {
+  background: #202A34;
+  color: var(--text);
+}
+body.dark .light-btn {
+  color: #26384B;
+  background: #edf4f7;
+}
+@media (max-width: 620px) {
+  .wrap { padding: 16px 13px 104px; }
+  .hero {
+    margin: -16px -13px 0;
+    padding: 36px 16px 68px;
+    border-radius: 0 0 26px 26px;
+  }
+  .logo { width: 94px; height: 94px; }
+  .hero h1 { font-size: 29px; }
+  .hero p { font-size: 14px; }
+  .grid { gap: 10px; margin-top: -35px; }
+  .quick { min-height: 100px; border-radius: 17px; }
+  .card { padding: 19px 17px; border-radius: 19px; }
+  .card h2 { font-size: 19px; }
+  .top-actions button, .top-actions .button { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+  
+/* ============================================================
+   SEU HOTEL | CONCIERGE DIGITAL — WEBSITE DESIGN SYSTEM
+   Redesign de layout e apresentação; conteúdo, IDs e scripts
+   originais preservados.
+   ============================================================ */
+:root{
+  --bg:#F4F5F6; --card:#fff; --text:#26384B; --muted:#68717C;
+  --accent:#C5A15B; --navy:#26384B; --navy2:#35495D; --teal:#C5A15B;
+  --line:#E5E8EC; --shadow:0 12px 34px rgba(16,43,70,.07);
+}
+body.dark{
+  --bg:#171B20; --card:#26384B; --text:#F5F0E5; --muted:#B8C0C9;
+  --navy:#071a2b; --navy2:#35495D; --line:#294253;
+  --shadow:0 14px 36px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:105px}
+body{
+  margin:0;color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);line-height:1.65;transition:background .25s,color .25s;
+}
+a{color:inherit}
+.site-header{
+  position:sticky;top:0;z-index:30;width:100%;
+  background:rgba(255,255,255,.94);border-bottom:1px solid rgba(226,234,240,.9);
+  box-shadow:0 4px 22px rgba(16,43,70,.045);backdrop-filter:blur(16px);
+}
+.site-header-inner{
+  width:min(1180px,calc(100% - 44px));min-height:76px;margin:auto;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.site-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#26384B;flex-shrink:0}
+.site-brand img{width:43px;height:43px;object-fit:contain;border-radius:50%;background:#fff}
+.site-brand span{font-size:15px;line-height:1.1;letter-spacing:.04em;font-weight:600}
+.site-brand b{font-weight:900}
+.site-brand small{display:block;margin-top:5px;color:#68717C;font-size:9px;letter-spacing:.16em;font-weight:700}
+.site-nav{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.2vw,30px)}
+.site-nav a{text-decoration:none;color:#68717C;font-size:13px;font-weight:700;white-space:nowrap;transition:color .2s}
+.site-nav a:hover{color:#A98745}
+.header-contact{
+  display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:999px;
+  color:#fff;background:#26384B;text-decoration:none;font-size:12px;font-weight:800;
+  white-space:nowrap;box-shadow:0 7px 18px rgba(16,43,70,.16)
+}
+.header-contact span{color:#E8D9B6;font-size:16px}
+.wrap{width:min(1180px,calc(100% - 44px));margin:0 auto;padding:0 0 80px}
+.hero{
+  min-height:390px;position:relative;overflow:hidden;isolation:isolate;
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.7fr);
+  align-items:center;gap:40px;padding:60px clamp(28px,6vw,76px);
+  margin:32px 0 0;border-radius:30px;color:#fff;
+  background:
+    radial-gradient(ellipse at 82% 20%,rgba(197,161,91,.3),transparent 32%),
+    radial-gradient(ellipse at 5% 100%,rgba(199,164,92,.18),transparent 35%),
+    linear-gradient(118deg,#202A34 0%,#35495D 60%,#35495D 100%);
+  box-shadow:0 24px 60px rgba(16,43,70,.18)
+}
+.hero:before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.12;
+  background-image:linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:linear-gradient(90deg,#000,transparent 90%)
+}
+.hero:after{
+  content:"";position:absolute;z-index:-1;width:460px;height:460px;right:-170px;bottom:-300px;
+  border:1px solid rgba(255,255,255,.16);border-radius:50%;
+  box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 70px rgba(255,255,255,.02)
+}
+.hero-copy{max-width:680px}
+.hero-kicker,.welcome-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;
+  letter-spacing:.2em;color:#E8D9B6
+}
+.hero-kicker-dot,.online-dot{width:7px;height:7px;border-radius:50%;background:#E8D9B6;box-shadow:0 0 0 5px rgba(110,224,188,.13)}
+.hero-brandline{display:flex;align-items:center;gap:19px;margin-top:18px}
+.logo{
+  width:82px;height:82px;flex:0 0 82px;border-radius:22px;display:grid;place-items:center;
+  margin:0;background:#fff;padding:5px;border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 12px 30px rgba(0,0,0,.2)
+}
+.logo img{width:100%;height:100%;object-fit:contain;border-radius:17px}
+.hero h1{margin:0;color:#fff;font-size:clamp(34px,4.5vw,53px);line-height:1.06;letter-spacing:-.055em;font-weight:900}
+.hero p{margin:8px 0 0;color:rgba(244,250,253,.78);font-size:15px}
+.hero-description{max-width:570px;margin:22px 0 0!important;font-size:16px!important;line-height:1.8!important;color:rgba(245,250,253,.83)!important}
+.top-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+button,.button{border:0;border-radius:12px;padding:12px 17px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:8px;font-size:13px;transition:transform .2s,box-shadow .2s,background .2s}
+button:hover,.button:hover{transform:translateY(-2px)}
+.hero-primary{background:linear-gradient(135deg,#D9BD7B,#C5A15B);color:#26384B;box-shadow:0 10px 25px rgba(199,164,92,.25)}
+.hero-secondary{color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px)}
+.hero-side{display:flex;flex-direction:column;align-items:stretch;gap:15px;max-width:300px;justify-self:end;width:100%}
+.hero-side-card{
+  display:flex;flex-direction:column;align-items:flex-start;padding:25px;border-radius:22px;
+  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);
+  box-shadow:0 18px 45px rgba(0,0,0,.12);backdrop-filter:blur(14px)
+}
+.hero-side-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:rgba(199,164,92,.2);color:#f0d99d;font-size:24px}
+.hero-side-label{margin-top:20px;color:#E8D9B6;font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}
+.hero-side-card strong{margin-top:5px;font-size:21px;color:#fff}
+.hero-side-caption{margin-top:7px;color:rgba(245,250,253,.7);font-size:12px;line-height:1.6}
+.hero-side-note{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.72);font-size:11px;padding-left:7px}
+.grid{
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:11px;
+  margin:20px 0 22px;padding:0
+}
+.quick{
+  display:flex;align-items:center;justify-content:center;gap:9px;min-height:65px;
+  padding:12px;border:1px solid var(--line);border-radius:15px;background:var(--card);
+  text-align:center;text-decoration:none;box-shadow:0 5px 17px rgba(16,43,70,.045);
+  transition:transform .2s,border-color .2s,box-shadow .2s
+}
+.quick span{display:block;font-size:19px;margin:0}
+.quick strong{font-size:11px;color:var(--text);white-space:nowrap}
+.quick:hover{transform:translateY(-3px);border-color:#D8C18E;box-shadow:0 12px 25px rgba(16,43,70,.09)}
+.welcome-strip{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 28px;margin:0 0 20px;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(110deg,var(--card),rgba(197,161,91,.045));box-shadow:0 7px 23px rgba(16,43,70,.035)
+}
+.welcome-eyebrow{color:#A98745;font-size:9px}
+.welcome-strip h2{margin:5px 0 2px;font-size:21px;line-height:1.25;letter-spacing:-.03em;color:var(--text)}
+.welcome-strip p{margin:0;color:var(--muted);font-size:12px}
+.welcome-mark{display:flex;align-items:center;gap:10px;color:#A98745}
+.welcome-mark span{font-size:34px}
+.welcome-mark small{font-size:9px;line-height:1.5;font-weight:850;letter-spacing:.1em}
+.site-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
+.card{
+  margin:0;min-width:0;padding:25px;border:1px solid var(--line);border-radius:20px;
+  background:var(--card);box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s
+}
+.card:hover{border-color:rgba(197,161,91,.22);box-shadow:0 16px 38px rgba(16,43,70,.09)}
+.card h2{margin:0 0 17px;font-size:19px;line-height:1.3;letter-spacing:-.025em;color:var(--text);font-weight:850}
+.card h3{margin:16px 0 8px;font-size:15px;color:var(--text)}
+.card p,.card li{font-size:13px;line-height:1.75}
+.card p{color:var(--muted)}
+.card strong{color:var(--text)}
+#regras,#turismo,#avaliacao,#localizacao,#contato,.site-grid>.card:has(details){grid-column:1/-1}
+#regras ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 28px;padding-left:20px}
+#regras li{padding-left:3px}
+#wifi .info,.info,.notice,.success{padding:15px 17px;border-radius:12px;margin:12px 0;border-left:3px solid var(--accent);background:rgba(199,164,92,.09)}
+.notice{border-left-color:#c46b62;background:rgba(196,107,98,.08)}
+.success{border-left-color:#24966d;background:rgba(36,150,109,.08)}
+.full{display:flex;width:100%;margin-top:12px}
+.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.service-grid .button{min-height:48px;padding:11px;background:#F5F0E5;color:#35495D;border:1px solid #E5E8EC}
+.service-grid .button:hover{background:#F5F0E5;border-color:#D8C18E}
+.gold-btn{background:linear-gradient(135deg,#D9BD7B,#C5A15B);color:#26384B}
+.dark-btn{background:#26384B;color:#fff}
+.light-btn{background:#fff;color:#26384B}
+.outline-btn{background:transparent;border:1px solid var(--line);color:var(--text)}
+ul{padding-left:20px;margin:8px 0}
+li{margin:7px 0}
+details{border-top:1px solid var(--line);padding:14px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:800;font-size:13px;color:var(--text)}
+details p{padding:4px 8px 0}
+textarea,input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);font:inherit;font-size:13px}
+textarea{min-height:120px;resize:vertical}
+textarea:focus,input:focus{outline:0;border-color:#C5A15B;box-shadow:0 0 0 4px rgba(197,161,91,.12)}
+.recommendation{padding:13px;border:1px dashed var(--line);border-radius:13px;margin:9px 0}
+.editable[contenteditable=true]{outline:2px dashed var(--accent);outline-offset:4px;border-radius:4px}
+.edit-panel{
+  position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(780px,calc(100% - 20px));
+  display:none;gap:8px;flex-wrap:wrap;justify-content:center;background:rgba(10,32,52,.96);
+  padding:12px;border-radius:17px;z-index:40;box-shadow:0 14px 38px rgba(0,0,0,.32)
+}
+.edit-panel.show{display:flex}
+.edit-panel button{padding:10px 13px}
+footer{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:28px;padding:22px 6px;border-top:1px solid var(--line);color:var(--muted);font-size:11px
+}
+.footer-brand{display:flex;align-items:center;gap:9px;color:var(--text);letter-spacing:.07em}
+.footer-brand img{width:29px;height:29px;object-fit:contain;border-radius:50%;background:#fff}
+.small{font-size:12px;color:var(--muted)}
+.restaurante-header{display:flex;align-items:center;gap:15px;margin-bottom:15px}
+.restaurante-logo{width:78px;height:78px;object-fit:contain;background:#fff;border-radius:16px;padding:6px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.restaurante-nome{font-size:18px}
+.restaurante-galeria{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+.restaurante-galeria img{width:100%;height:245px;object-fit:cover;border-radius:15px;display:block}
+body.dark .site-header{background:rgba(11,28,43,.94);border-bottom-color:var(--line)}
+body.dark .site-brand{color:#f0f6f9}
+body.dark .site-nav a{color:#afc1cc}
+body.dark .header-contact{background:#C5A15B;color:#082d3b}
+body.dark .quick{background:var(--card);border-color:var(--line)}
+body.dark .service-grid .button{background:#18394d;color:#eaf4f8;border-color:#2d5265}
+body.dark .welcome-strip{background:linear-gradient(110deg,var(--card),rgba(197,161,91,.08))}
+body.dark .info{background:rgba(199,164,92,.08)}
+body.dark .notice{background:rgba(196,107,98,.09)}
+body.dark .success{background:rgba(36,150,109,.09)}
+body.dark .light-btn{background:#eaf1f4;color:#26384B}
+@media(max-width:900px){
+  .site-header-inner{width:calc(100% - 30px);gap:14px}
+  .site-nav{gap:13px}
+  .site-nav a{font-size:11px}
+  .hero{grid-template-columns:minmax(0,1.4fr) minmax(210px,.7fr);gap:20px;padding:48px 38px}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  .site-header-inner{min-height:66px;width:calc(100% - 24px);gap:12px}
+  .site-brand img{width:36px;height:36px}
+  .site-brand span{font-size:12px}
+  .site-brand small{font-size:8px}
+  .site-nav{display:none}
+  .header-contact{padding:10px 13px;font-size:11px}
+  .wrap{width:calc(100% - 24px);padding:0 0 50px}
+  .hero{grid-template-columns:1fr;min-height:0;margin-top:16px;padding:34px 23px 30px;border-radius:23px}
+  .hero-side{display:none}
+  .hero-brandline{gap:14px}
+  .logo{width:64px;height:64px;flex-basis:64px;border-radius:17px;padding:4px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:12px}
+  .hero-description{font-size:13px!important;margin-top:16px!important}
+  .top-actions{margin-top:20px}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:13px 0 15px}
+  .quick{min-height:65px;flex-direction:column;gap:3px;padding:8px 3px;border-radius:12px}
+  .quick span{font-size:19px}
+  .quick strong{font-size:9px}
+  .welcome-strip{padding:17px 18px;margin-bottom:15px}
+  .welcome-strip h2{font-size:17px}
+  .welcome-strip p{font-size:11px}
+  .welcome-mark{display:none}
+  .site-grid{grid-template-columns:1fr;gap:13px}
+  .card{padding:20px 18px;border-radius:17px}
+  #regras ul{grid-template-columns:1fr}
+  #regras,#turismo,#avaliacao,#localizacao,#contato,.site-grid>.card:has(details){grid-column:auto}
+  .service-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .service-grid .button{font-size:11px;padding:10px 7px}
+  .restaurante-galeria{grid-template-columns:1fr 1fr;gap:8px}
+  .restaurante-galeria img{height:160px}
+  footer{align-items:flex-start;flex-direction:column;gap:8px}
+}
+@media(max-width:390px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hero h1{font-size:30px}
+  .service-grid{grid-template-columns:1fr}
+}
+@media print{
+  .site-header{display:none!important}
+  .hero{background:#26384B!important;print-color-adjust:exact}
+  .site-grid{display:block}
+  .card{margin-bottom:14px;break-inside:avoid;box-shadow:none}
+  .welcome-strip{break-inside:avoid}
+}
+
+  
+/* Identidade visual SEU HOTEL: cinza azulado, branco, preto e dourado */
+:root {
+  --bg: #F4F5F6;
+  --card: #FFFFFF;
+  --text: #202833;
+  --muted: #68717C;
+  --accent: #C5A15B;
+  --navy: #26384B;
+  --navy2: #35495D;
+  --teal: #C5A15B;
+  --dark: #171B20;
+  --line: #E5E8EC;
+  --shadow: 0 14px 36px rgba(23, 27, 32, .08);
+}
+body.dark {
+  --bg: #171B20;
+  --card: #222A33;
+  --text: #F5F6F7;
+  --muted: #B8C0C9;
+  --accent: #D4B66F;
+  --navy: #26384B;
+  --navy2: #35495D;
+  --teal: #D4B66F;
+  --dark: #101418;
+  --line: #39434E;
+}
+.hero { background: linear-gradient(120deg, #171B20 0%, #26384B 58%, #35495D 100%); }
+.header-contact, .hero-primary, .gold-btn { background: linear-gradient(135deg, #D9BD7B, #C5A15B); color: #171B20; }
+.site-header { background: rgba(255,255,255,.96); }
+.welcome-strip { background: linear-gradient(110deg, #fff, #F5F0E5); }
+.quick:hover, .card:hover { border-color: rgba(197,161,91,.45); }
+.service-grid .button { background: #F5F0E5; color: #26384B; border-color: #E9DFC8; }
+textarea:focus, input:focus { border-color: #C5A15B; box-shadow: 0 0 0 4px rgba(197,161,91,.14); }
+body.dark .service-grid .button { background: #35495D; color: #F5F6F7; border-color: #536273; }
+body.dark .welcome-strip { background: linear-gradient(110deg, #222A33, #30343A); }
+
+
+
+/* Ajustes finais de acabamento e compatibilidade dos componentes existentes */
+.item {
+  margin: 12px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--card), rgba(197,161,91,.035));
+}
+.item > strong {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--text);
+  font-size: 14px;
+}
+.item p { margin: 8px 0; }
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-gold {
+  color: #202833;
+  background: linear-gradient(135deg, #D9BD7B, #C5A15B);
+  box-shadow: 0 7px 18px rgba(197,161,91,.18);
+}
+.btn-dark { color: #fff; background: #26384B; }
+.item .btn + .btn { margin-top: 8px; }
+.site-nav a:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid rgba(197,161,91,.65);
+  outline-offset: 3px;
+}
+@media (max-width: 680px) {
+  .item { padding: 15px; }
+  .item .btn { width: 100%; }
+}
+
+  </style>
+</head>
+<body>
+  <div id="topo"></div>
+<header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-brand" href="#topo" aria-label="SEU HOTEL - início">
+        <img src="imagens.png" alt="">
+        <span>SEU <b>HOTEL</b><small>CONCIERGE DIGITAL</small></span>
+      </a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="#hospedagem">Hospedagem</a>
+        <a href="#cafe">Café da manhã</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#restaurante">Onde comer</a>
+        <a href="#localizacao">Localização</a>
+      </nav>
+      <a class="header-contact" href="https://wa.me/5583981131259?text=Olá!%20Estou%20hospedado(a)%20no%20SEU%20HOTEL%20e%20gostaria%20de%20atendimento." target="_blank">Recepção <span>↗</span></a>
+    </div>
+  </header>
+  <main class="wrap" id="content">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span class="hero-kicker-dot"></span> EXPERIÊNCIA SEU HOTEL</div>
+        <div class="hero-brandline">
+          <div class="logo"><img src="imagens.png" alt="Logo do SEU HOTEL"></div>
+          <div class="hero-brandtext">
+            <h1 class="editable" data-key="hotelName">SEU HOTEL</h1>
+            <p class="editable" data-key="subtitle">Seu concierge digital durante a hospedagem</p>
+          </div>
+        </div>
+        <p class="hero-description">Tudo o que você precisa durante sua hospedagem, em um só lugar. Conte com nossa equipe para tornar sua experiência ainda melhor.</p>
+        <div class="top-actions hide-print">
+          <a class="button hero-primary" href="https://wa.me/5583981131259?text=Olá!%20Estou%20hospedado(a)%20no%20SEU%20HOTEL%20e%20gostaria%20de%20atendimento." target="_blank">💬 Falar com a recepção</a>
+          <button class="hero-secondary" onclick="toggleDark()">🌙 Modo escuro</button>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-side-card">
+          <span class="hero-side-icon">✦</span>
+          <span class="hero-side-label">Estamos aqui para você</span>
+          <strong>Recepção 24 horas</strong>
+          <span class="hero-side-caption">Atendimento durante toda a sua hospedagem</span>
+        </div>
+        <div class="hero-side-note"><span class="online-dot"></span> Conte com a nossa equipe</div>
+      </div>
+    </section>
+
+    <section class="grid hide-print">
+      <a class="quick" href="#wifi"><span>📶</span><strong>Wi‑Fi</strong></a>
+      <a class="quick" href="#hospedagem"><span>🛏️</span><strong>Hospedagem</strong></a>
+      <a class="quick" href="#cafe"><span>☕</span><strong>Café</strong></a>
+      <a class="quick" href="#regras"><span>📋</span><strong>Regras</strong></a>
+      <a class="quick" href="#delivery"><span>🍔</span><strong>Delivery</strong></a>
+      <a class="quick" href="#restaurante"><span>🍽️</span><strong>Onde Comer</strong></a>
+      <a class="quick" href="#avaliacao"><span>⭐</span><strong>Avaliar</strong></a>
+    </section>
+
+<section class="welcome-strip">
+      <div><span class="welcome-eyebrow">BEM-VINDO(A)</span><h2>Sua estadia, com tudo mais fácil.</h2><p>Acesse serviços, informações e recomendações preparadas para você.</p></div>
+      <div class="welcome-mark"><span>✧</span><small>SEU HOTEL<br>Patos · PB</small></div>
+    </section>
+    <div class="site-grid">
+    <section class="card" id="wifi">
+      <h2>📶 Wi‑Fi</h2>
+      <div class="info">
+        <p><strong>Rede:</strong> <span class="editable" data-key="wifiName">SEU HOTEL</span></p>
+        <p><strong>Senha:</strong> <span id="wifiPassword" class="editable" data-key="wifiPassword">seuhotelpatos*</span></p>
+      </div>
+      <button class="dark-btn full hide-print" onclick="copyWifi()">📋 Copiar senha do Wi‑Fi</button>
+    </section>
+
+    <section class="card" id="hospedagem">
+      <h2>🛏️ Minha hospedagem</h2>
+      <p><strong>Recepção:</strong> 24 horas</p>
+      <p><strong>Check-out:</strong> até às 12h</p>
+      <div class="service-grid hide-print">
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20a%20arrumação%20do%20meu%20quarto.">🧹 Solicitar arrumação</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20troca%20de%20toalhas.">🧺 Trocar toalhas</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Preciso%20de%20ajuda%20com%20a%20manutenção%20do%20quarto.">🛠️ Manutenção</a>
+        <a class="button dark-btn" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20falar%20com%20a%20recepção.">🛎️ Falar com a recepção</a>
+      </div>
+      <div class="notice">
+  <strong>Atenção:</strong> a arrumação do quarto, quando solicitada pelo hóspede, deve ser pedida até às 11h.
+  <br><br>
+  <strong>🧹 Importante:</strong> aos domingos, não realizamos serviço de arrumação dos quartos.
+  Agradecemos a compreensão.
+</div>
+    </section>
+
+    <section class="card" id="cafe">
+      <h2>☕ Café da manhã</h2>
+      <p><strong>Segunda a sexta:</strong> <span class="editable" data-key="coffeeWeek">06h às 09h</span></p>
+      <p><strong>Sábados, domingos e feriados:</strong> <span class="editable" data-key="coffeeWeekend">07h às 09h</span></p>
+      <div class="info">O espaço café poderá ser usado para reuniões ou trabalhos somente após as 09h e depois da limpeza do ambiente.</div>
+    </section>
+
+    <section class="card" id="regras">
+      <h2>📋 Regras do hotel</h2>
+      <ul>
+        <li>Não é permitido fumar nos quartos ou nas áreas internas.</li>
+        <li>Evite barulhos nos corredores, principalmente durante a noite.</li>
+        <li>
+  A arrumação do quarto, quando solicitada, deve ser pedida até às 11h.
+  <strong>Aos domingos, não há serviço de arrumação dos quartos.</strong>
+</li>
+        <li>Visitantes devem ser identificados e cadastrados na recepção.</li>
+        <li><strong>Visitas têm tolerância de permanência de até 5 minutos.</strong></li>
+        <li>Os consumos estão disponíveis somente no freezer da recepção.</li>
+        <li>Os consumos não estão incluídos no valor da diária.</li>
+        <li>O pagamento dos consumos deve ser feito diretamente na recepção.</li>
+        <li>Utensílios do espaço café só podem ser levados aos quartos com autorização da gerência.</li>
+        <li>Ao sair do quarto, desligue luzes, televisão e ar-condicionado.</li>
+        <li>Danos causados ao patrimônio poderão ser cobrados do responsável pela hospedagem.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="delivery">
+      <h2>🍔 Delivery</h2>
+      <p>Peça comida, mercado, farmácia, água, gás e outros itens pelo aplicativo.</p>
+      <a class="button gold-btn full hide-print" href="https://play.google.com/store/apps/details?id=com.querodelivery&hl=pt-BR" target="_blank">📲 Baixar Quero Delivery na Play Store</a>
+      <div class="info">
+        No endereço de entrega, informe <strong>SEU HOTEL</strong>, Rua Escritor Rui Barbosa, nº 20, Centro, Patos/PB. Informe também seu nome e o número do quarto.
+      </div>
+      <div class="notice">
+        O hotel não se responsabiliza pelo preparo, pagamento, prazo ou entrega dos pedidos realizados em aplicativos ou estabelecimentos externos.
+      </div>
+    </section>
+<section class="card" id="restaurante">
+
+  <h2>🍽️ Restaurante Indicado</h2>
+
+  <div class="restaurante-header">
+
+    <img src="logo-simples.jpg"
+         alt="Logo Simplê Restaurante"
+         class="restaurante-logo">
+
+    <div>
+      <strong class="restaurante-nome">Simplê Restaurante</strong>
+      <p class="small">Indicação SEU HOTEL</p>
+    </div>
+
+  </div>
+
+  <p>
+    Uma ótima opção gastronômica para nossos hóspedes, 
+    com ambiente agradável e acolhedor para aproveitar 
+    bons momentos. Desfrute de um delicioso almoço, 
+    com grande variedade de pratos e sabores preparados 
+    para tornar sua experiência ainda mais especial.
+  </p>
+
+  <div class="restaurante-galeria">
+
+    <img src="ambiente-simples-1.jpg"
+         alt="Ambiente do Simplê Restaurante">
+
+    <img src="ambiente-simples-2.jpg"
+         alt="Ambiente do Simplê Restaurante">
+
+  </div>
+
+  <a class="button gold-btn full hide-print"
+     href="https://share.google/7NH5SyFEJmePC8lCI"
+     target="_blank">
+     📍 Como chegar
+  </a>
+
+</section>
+<section class="card" id="lojas">
+    <h2>🛍️ Lojas Recomendadas</h2>
+
+    <div class="item">
+        <strong>🏠 De Tudo Home Center</strong>
+
+        <p>
+        Tudo para sua casa: utilidades domésticas, decoração, organização,
+        presentes, brinquedos e muito mais.
+        </p>
+
+        <p>
+        📍 Rua Bossuet Wanderley, 58<br>
+        Centro – Patos/PB<br>
+        CEP 58700-410
+        </p>
+
+        <a class="btn btn-gold full"
+           href="https://www.google.com/maps/search/?api=1&query=Rua+Bossuet+Wanderley,+58,+Centro,+Patos,+PB"
+           target="_blank">
+           📍 Como chegar
+        </a>
+
+        <a class="btn btn-dark full"
+           href="https://www.instagram.com/detudohomecenterpatos/"
+           target="_blank">
+           📷 Instagram
+        </a>
+    </div>
+
+</section>
+    <section class="card" id="turismo">
+
+    <h2>🏛️ Pontos Turísticos e Religiosos</h2>
+
+    <div class="item">
+        <strong>✝️ Parque Religioso Cruz da Menina</strong>
+
+        <p>
+        Localizado às margens da BR-230, em Patos/PB, o Parque Religioso Cruz da Menina é um dos principais destinos de turismo religioso do Sertão Paraibano.
+        </p>
+
+        <p>
+        O espaço recebe diariamente romeiros e visitantes que chegam para pagar promessas, fazer pedidos e momentos de oração em um ambiente de fé e tranquilidade.
+        </p>
+
+        <a class="btn btn-gold full"
+        target="_blank"
+        href="https://www.google.com/maps/search/?api=1&query=Parque+Religioso+Cruz+da+Menina+Patos+PB">
+        📍 Como chegar
+        </a>
+    </div>
+
+
+    <div class="item">
+        <strong>⛪ Catedral de Nossa Senhora da Guia</strong>
+
+        <p>
+        A Catedral de Nossa Senhora da Guia é a igreja matriz da Diocese de Patos e integra a Paróquia da Forania das Espinharas.
+        </p>
+
+        <p>
+        Além de sua importância histórica e religiosa, é um dos principais cartões-postais da cidade, recebendo fiéis e visitantes durante todo o ano.
+        </p>
+
+        <a class="btn btn-gold full"
+        target="_blank"
+        href="https://www.google.com/maps/search/?api=1&query=Catedral+Nossa+Senhora+da+Guia+Patos+PB">
+        📍 Como chegar
+        </a>
+    </div>
+
+
+    <div class="item">
+        <strong>🙏 Santuário de Deus Pai Todo-Poderoso</strong>
+
+        <p>
+        Localizado na zona rural do município de Malta/PB, às margens da BR-230 (sentido Condado), o Santuário de Deus Pai Todo-Poderoso é considerado o maior santuário católico da Paraíba.
+        </p>
+
+        <p>
+        O complexo recebe milhares de peregrinos aos finais de semana, oferecendo celebrações de Santas Missas, confissões, momentos de oração e uma arquitetura imponente que proporciona uma profunda experiência de espiritualidade.
+        </p>
+
+        <a class="btn btn-gold full"
+        target="_blank"
+        href="https://www.google.com/maps/search/?api=1&query=Santuário+Deus+Pai+Todo+Poderoso+Malta+PB">
+        📍 Como chegar
+        </a>
+    </div>
+
+</section>
+
+    <section class="card">
+      <h2>🏋️ Academia parceira</h2>
+      <p>Hóspedes do SEU HOTEL podem utilizar a <strong>Sol Fitness</strong> mediante apresentação do passe fornecido pelo hotel.</p>
+      <p><strong>Valor:</strong> R$ 10,00 por acesso.</p>
+      <a class="button gold-btn full hide-print" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Gostaria%20de%20solicitar%20o%20passe%20da%20academia%20Sol%20Fitness.">Solicitar passe</a>
+    </section>
+
+    <section class="card" id="avaliacao">
+      <h2>⭐ Deixe seu comentário</h2>
+      <p>Sua opinião é muito importante para melhorarmos nossos serviços.</p>
+      <input id="guestName" type="text" placeholder="Seu nome (opcional)">
+      <textarea id="guestComment" placeholder="Escreva seu elogio, sugestão ou observação..."></textarea>
+      <button class="gold-btn full hide-print" onclick="sendComment()">💬 Enviar comentário pelo WhatsApp</button>
+      <p class="small">O comentário só será enviado quando você confirmar o envio no WhatsApp.</p>
+    </section>
+
+    <section class="card" id="localizacao">
+      <h2>📍 Localização</h2>
+      <p class="editable" data-key="address">Rua Escritor Rui Barbosa, nº 20, Centro – Patos/PB</p>
+      <a class="button gold-btn full hide-print" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Rua%20Escritor%20Rui%20Barbosa%2020%20Centro%20Patos%20PB">Abrir no Google Maps</a>
+    </section>
+
+    <section class="card">
+      <h2>❓ Perguntas frequentes</h2>
+      <details><summary>Como funciona a reserva?</summary><p>Solicitamos os dados do responsável e um adiantamento de 50% do valor da hospedagem. Os outros 50% são pagos no check-in.</p></details>
+      <details><summary>Quando a nota fiscal é emitida?</summary><p>A nota fiscal é emitida no check-out, após a conclusão da hospedagem.</p></details>
+      <details><summary>O hotel possui estacionamento?</summary><p>Consulte a recepção para receber as orientações disponíveis no momento da hospedagem.</p></details>
+      <details><summary>Posso receber visitantes?</summary><p>Sim, desde que o visitante seja identificado e cadastrado na recepção. A tolerância de permanência é de até 5 minutos.</p></details>
+    </section>
+
+    <section class="card" id="contato">
+      <h2>💬 Contato</h2>
+      <p><strong>Telefone/WhatsApp:</strong> (83) 98113-1259</p>
+      <p><strong>Instagram:</strong> @seu.hotel</p>
+      <p><strong>E-mail:</strong> seuhotelpb@gmail.com</p>
+      <a class="button dark-btn full hide-print" target="_blank" href="https://wa.me/5583981131259?text=Olá!%20Estou%20hospedado(a)%20no%20SEU%20HOTEL%20e%20gostaria%20de%20atendimento.">Chamar a recepção</a>
+    </section>
+
+    </div>
+    <footer><div class="footer-brand"><img src="imagens.png" alt=""><strong>SEU HOTEL</strong></div><span>© 2026 SEU HOTEL · Patos/PB</span><span>Conte com a nossa equipe durante toda a sua hospedagem.</span></footer>
+  </main>
+
+  <div class="edit-panel" id="editPanel">
+    <button class="gold-btn" onclick="saveEdits()">💾 Salvar</button>
+    <button class="light-btn" onclick="toggleEditor()">✅ Concluir edição</button>
+    <button class="light-btn" onclick="window.print()">🖨️ Imprimir/PDF</button>
+    <button class="outline-btn" onclick="resetEdits()">↩️ Restaurar original</button>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'seuHotelConciergeEditsV3';
+    let editing = false;
+
+    function toggleDark(){
+      document.body.classList.toggle('dark');
+      localStorage.setItem('seuHotelDarkMode', document.body.classList.contains('dark') ? '1' : '0');
+    }
+
+    function toggleEditor(){
+      editing = !editing;
+      document.querySelectorAll('.editable').forEach(el => {
+        el.contentEditable = editing ? 'true' : 'false';
+      });
+      document.getElementById('editPanel').classList.toggle('show', editing);
+      if(editing) alert('Modo de edição ativado. Clique nos textos destacados, altere e depois pressione Salvar.');
+    }
+
+    function saveEdits(){
+      const data = {};
+      document.querySelectorAll('[data-key]').forEach(el => data[el.dataset.key] = el.innerHTML);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      alert('Alterações salvas neste navegador.');
+    }
+
+    function loadEdits(){
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(!saved) return;
+      try{
+        const data = JSON.parse(saved);
+        document.querySelectorAll('[data-key]').forEach(el => {
+          if(data[el.dataset.key] !== undefined) el.innerHTML = data[el.dataset.key];
+        });
+      }catch(e){}
+    }
+
+    function resetEdits(){
+      if(confirm('Deseja apagar todas as alterações salvas e restaurar o conteúdo original?')){
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    }
+
+    function copyWifi(){
+      const password = document.getElementById('wifiPassword').innerText.trim();
+      navigator.clipboard.writeText(password)
+        .then(() => alert('Senha copiada: ' + password))
+        .catch(() => prompt('Copie a senha:', password));
+    }
+
+    function sendComment(){
+      const name = document.getElementById('guestName').value.trim();
+      const comment = document.getElementById('guestComment').value.trim();
+      if(!comment){ alert('Escreva seu comentário antes de enviar.'); return; }
+      const text = `Olá! Gostaria de deixar um comentário sobre minha hospedagem no SEU HOTEL.%0A%0ANome: ${encodeURIComponent(name || 'Não informado')}%0AComentário: ${encodeURIComponent(comment)}`;
+      window.open('https://wa.me/5583981131259?text=' + text, '_blank');
+    }
+
+    if(localStorage.getItem('seuHotelDarkMode') === '1') document.body.classList.add('dark');
+    loadEdits();
+  </script>
+</body>
+</html>
