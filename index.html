@@ -92,12 +92,12 @@ footer{background:#101f31;color:#d5dce5;padding:34px 0}.foot{display:flex;justif
 </div></div><div class="toast" id="toast"></div>
 <script>
 let selectedService='';
-function openModal(title,description){selectedService=title;document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=description+' (Demonstração de teste: o envio ainda não está conectado ao sistema do hotel.)';document.getElementById('requestForm').style.display='block';document.getElementById('infoActions').style.display='none';document.getElementById('modalBg').style.display='flex'}
+function openModal(title,description){selectedService=title;document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=description+' Sua solicitação será encaminhada à recepção pelo WhatsApp.';document.getElementById('requestForm').style.display='block';document.getElementById('infoActions').style.display='none';document.getElementById('modalBg').style.display='flex'}
 function showInfo(title,description){document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=description;document.getElementById('requestForm').style.display='none';document.getElementById('infoActions').style.display='flex';document.getElementById('modalBg').style.display='flex'}
 function closeModal(){document.getElementById('modalBg').style.display='none'}
 function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3500)}
 function sendRequest(e){e.preventDefault();let room=document.getElementById('room').value;let details=document.getElementById('details').value;console.log({servico:selectedService,apartamento:room,detalhes:details,criadoEm:new Date().toISOString()});closeModal();document.getElementById('requestForm').reset();toast('Solicitação de demonstração registrada para o apartamento '+room+'.')}
-function openWhatsApp(){toast('Demonstração: adicione o número oficial do WhatsApp da recepção para ativar este contato.')}
+function openWhatsApp(){window.open('https://wa.me/5583981131259?text='+encodeURIComponent('Olá! Estou hospedado no SEU HOTEL e gostaria de falar com a recepção.'),'_blank','noopener')}
 </script>
 <div class="side-bg" id="requestsBg" onclick="if(event.target===this)closeRequests()"><aside class="side-panel"><div class="side-head"><h3>Meus pedidos</h3><button class="xbtn" onclick="closeRequests()">×</button></div><p style="font-size:12px;color:#697586;line-height:1.6">Solicitações registradas nesta demonstração, salvas somente neste navegador.</p><div id="requestsList"></div><button class="nav-cta" style="width:100%;margin-top:12px" onclick="clearRequests()">LIMPAR PEDIDOS DE TESTE</button></aside></div>
 <div class="modal-bg" id="guestProfileBg" onclick="if(event.target===this)closeGuestProfile()"><div class="modal"><h3>Personalize sua estadia</h3><p>Informe seus dados para deixar o portal mais pessoal.</p><form onsubmit="saveGuestProfile(event)"><label for="guestProfileName">Seu nome</label><input id="guestProfileName" placeholder="Como podemos chamar você?"><label for="guestProfileRoom">Apartamento</label><input id="guestProfileRoom" placeholder="Ex.: 302"><div class="modal-actions"><button type="button" class="cancel" onclick="closeGuestProfile()">CANCELAR</button><button type="submit" class="send">SALVAR</button></div></form></div></div>
@@ -114,10 +114,20 @@ function openRequests(){let items=shRead(SH_REQ,[]),list=document.getElementById
 function closeRequests(){document.getElementById('requestsBg').style.display='none'}
 function clearRequests(){localStorage.removeItem(SH_REQ);openRequests();shToast('Pedidos de teste apagados.')}
 function toggleConciergeChat(force){let el=document.getElementById('conciergeChat');el.style.display=force===false?'none':el.style.display==='block'?'none':'block'}
-function chatReply(key){let ans={horarios:'Check-in a partir das 14h; check-out até 12h. Recepção 24 horas. Café da manhã de segunda a sexta, das 07h às 09h30.',wifi:'Consulte a senha do Wi-Fi no QR Code de informações do apartamento ou solicite à recepção.',servicos:'Na seção “Serviços para sua estadia”, selecione toalhas, limpeza ou manutenção e preencha o pedido de demonstração.',recepcao:'A recepção funciona 24 horas. O botão de WhatsApp precisa ser configurado com o número oficial do hotel.'};let c=document.getElementById('chatContent'),b=document.createElement('div');b.className='chat-bubble';b.textContent=ans[key];c.appendChild(b);c.scrollTop=c.scrollHeight}
+function chatReply(key){let ans={horarios:'Check-in a partir das 14h; check-out até 12h. Recepção 24 horas. Café da manhã de segunda a sexta, das 07h às 09h30.',wifi:'Consulte a senha do Wi-Fi no QR Code de informações do apartamento ou solicite à recepção.',servicos:'Na seção “Serviços para sua estadia”, selecione o serviço, informe seu apartamento e envie pelo WhatsApp da recepção.',recepcao:'A recepção funciona 24 horas. Toque no botão para falar conosco pelo WhatsApp.'};let c=document.getElementById('chatContent'),b=document.createElement('div');b.className='chat-bubble';b.textContent=ans[key];c.appendChild(b);c.scrollTop=c.scrollHeight}
 let shStars=0;function selectStar(n){shStars=n;document.querySelectorAll('.rating-stars button').forEach((b,i)=>b.classList.toggle('selected',i<n))}
 function submitRating(){if(!shStars){shToast('Escolha uma nota de 1 a 5 estrelas.');return}let note=document.getElementById('ratingNote').value;localStorage.setItem('sh_demo_rating',JSON.stringify({stars:shStars,note,date:new Date().toLocaleString('pt-BR')}));document.getElementById('ratingWidget').innerHTML='<p style="color:#18877e;font-weight:700">Obrigado pela sua avaliação de teste!</p>';shToast('Avaliação salva neste navegador.')}
-// Intercepta o envio do formulário de serviço para manter um histórico local de teste.
-document.getElementById('requestForm').addEventListener('submit',function(e){e.preventDefault();let room=document.getElementById('room').value.trim(),details=document.getElementById('details').value.trim();let items=shRead(SH_REQ,[]);items.unshift({service:selectedService||'Solicitação',room,details,date:new Date().toLocaleString('pt-BR')});localStorage.setItem(SH_REQ,JSON.stringify(items));let p=shRead(SH_PROFILE,{});if(!p.room){p.room=room;localStorage.setItem(SH_PROFILE,JSON.stringify(p))}closeModal();this.reset();shToast('Pedido de teste registrado. Consulte “Meus pedidos”.')},true);
+// Encaminha a solicitação do hóspede para o WhatsApp da recepção.
+document.getElementById('requestForm').addEventListener('submit',function(e){
+  e.preventDefault(); e.stopImmediatePropagation();
+  let room=document.getElementById('room').value.trim();
+  let details=document.getElementById('details').value.trim();
+  let service=selectedService||'Solicitação';
+  let message='🔔 SOLICITAÇÃO DE HÓSPEDE — SEU HOTEL\nApartamento: '+room+'\nServiço: '+service+'\nDetalhes: '+details;
+  let url='https://wa.me/5583981131259?text='+encodeURIComponent(message);
+  closeModal(); this.reset();
+  window.open(url,'_blank','noopener');
+  shToast('WhatsApp aberto com sua solicitação. Toque em Enviar para encaminhar à recepção.');
+},true);
 </script>
 </body></html>
